@@ -36,13 +36,37 @@ def non_blocking_cond_wait(wake_event: EventFiredState, name: str, total_sleep_t
 
 def on_device_list(locator, info, fail_reason):
     global device
+    chosen = None
+
     if len(info) == 0:
-        print("No devices found in this scan.")
+        print("No devices found.")
         return
-    print(f"Found {len(info)} device(s). Using first device:")
-    info0 = info[0]
-    print("Serial:", info0.get_serial())
-    device = Device(locator, info0.get_serial(), locator.get_lib())
+
+    print(f"Found {len(info)} devices.")
+
+    if TARGET_SERIAL is None:
+        print(f"Using first device:")
+        chosen = info[0]
+
+    else:
+        for dev in info:
+            print(" device:", dev.get_serial(), dev.get_name())
+            if dev.get_serial() == TARGET_SERIAL:
+                chosen = dev
+                break
+
+    if chosen is None:
+        print(f"Target device {TARGET_SERIAL} not found!")
+        return
+
+    print()
+    print("Connecting to:")
+    print("Serial:", chosen.get_serial())
+    # TO DO
+
+    # TO DO
+
+    device = Device(locator, chosen.get_serial(), locator.get_lib())
     device_list_event.set_awake()
 
 def on_connection_status_changed(dev, status):
