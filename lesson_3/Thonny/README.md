@@ -1,4 +1,21 @@
-### Official downloads for Windows
+## Как установить Thonny на компьютер?
+
+---
+### 1. Непосредственно с сайта:
+
+https://thonny.org
+
+---
+
+### 2. С Яндекс Диска
+
+https://disk.360.yandex.ru/d/JbAQXmLkyTcGJw
+
+---
+
+### Описание файлов
+ 
+#### Official downloads for Windows
 
 1) Installer with 64-bit Python 3.10, requires 64-bit Windows 8.1 / 10 / 11
 `thonny-4.1.7.exe` (21 MB)
@@ -17,7 +34,7 @@
 pip install thonny
 ```
 
-### Official downloads for macOS
+#### Official downloads for macOS
 
 1) Installer with Python 3.10 (universal2)
 `thonny-4.1.7.pkg` (42 MB)
@@ -27,14 +44,14 @@ pip install thonny
 pip install thonny
 ```
 
-#### 3rd party distributions (may have older version)
+##### 3rd party distributions (may have older version)
 
 Downloading and launching the installer with Homebrew
 ```bash
 brew install thonny
 ```
 
-### Official downloads for Linux
+#### Official downloads for Linux
 
 1) Installer (installs private Python 3.10 on x86_64, uses existing python3 elsewhere)
 ```bash
@@ -46,7 +63,7 @@ bash <(wget -O - https://thonny.org/installer-for-linux)
 pip3 install thonny
 ```
 
-#### 3rd party distributions (may have older version)
+##### 3rd party distributions (may have older version)
 
 **Flatpak**
 ```bash
