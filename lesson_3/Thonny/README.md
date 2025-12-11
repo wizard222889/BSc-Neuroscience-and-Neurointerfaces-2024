@@ -9,7 +9,7 @@ https://thonny.org
 
 ### 2. С Яндекс Диска
 
-https://disk.360.yandex.ru/d/JbAQXmLkyTcGJw
+[https://disk.360.yandex.ru/d/JbAQXmLkyTcGJw](https://disk.yandex.ru/d/d4NPtqbK5e8fQg)
 
 ---
 
