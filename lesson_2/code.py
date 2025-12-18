@@ -2,7 +2,7 @@ import time
 import threading
 import numpy as np
 import matplotlib
-matplotlib.use('TkAgg')
+matplotlib.use('Qt5Agg')
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
@@ -20,7 +20,7 @@ EEG_WINDOW_SECONDS = 4.0 # Размер окна ЭЭГ данных
 CHANNELS = 4 #4 если Bipolar=False
 BUFFER_LEN = int(SAMPLE_RATE * EEG_WINDOW_SECONDS) # Размер буффера 
 MAX_PLOT_CHANNELS = CHANNELS # Сколько каналов отрисовывать
-TARGET_SERIAL = None # Серийний нейроинтерфейса для подключения, например "821619"
+TARGET_SERIAL = "821733" # Серийний нейроинтерфейса для подключения, например "821619"
 
 device = None
 device_locator = None
@@ -95,6 +95,8 @@ def on_connection_status_changed(d, status):
     print(f"Channel names: {channel_names}")
     device_conn_event.set_awake()
 
+rt_filter = RealTimeFilter(sfreq=250, l_freq=13, h_freq=30, n_channels=CHANNELS)
+
 def on_eeg(d, eeg: EEGTimedData):
     global ring
     samples = eeg.get_samples_count()
@@ -106,10 +108,11 @@ def on_eeg(d, eeg: EEGTimedData):
     for i in range(samples):
         for c in range(ch):
             block[c, i] = eeg.get_processed_value(c, i)
-            # TO DO
-            # TO DO
 
-    if block.shape[0] >= CHANNELS:
+            filtered_data = rt_filter.filter_block(block) 
+            block = filtered_data
+
+    if block.shape[0] >= CHANNELS: 
         ring.append_block(block[:CHANNELS, :])
     else:
         padded = np.zeros((CHANNELS, block.shape[1]), dtype=float)
@@ -183,6 +186,7 @@ def main():
     device.start()
     print("Device started. Opening plot...")
 
+
     # Создаём анимацию matplotlib, которая будет обновлять график в реальном времени.
     ani = FuncAnimation(fig, update_plot, interval=100, blit=False, cache_frame_data=False)
 
@@ -203,6 +207,9 @@ def main():
     plt.tight_layout()
     plt.show()
 
+
+    
+
     running = False
     device.stop()
     device.disconnect()
@@ -210,3 +217,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
