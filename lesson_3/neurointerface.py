@@ -23,9 +23,9 @@ BUFFER_LEN = int(SAMPLE_RATE * EEG_WINDOW_SECONDS)
 TARGET_SERIAL = "821733"
 
 #  Настройки машинки и порога 
-ESP32_IP = "172.20.10.13"  #  замените на IP вашей ESP32
+ESP32_IP = "172.20.10.12"  #  замените на IP вашей ESP32
 UDP_PORT = 9999            #  должен совпадать с main.py на ESP32
-THRESHOLD = 5.52e-11     # порог мощности (подстройте под данные)
+THRESHOLD = 5e-11     # порог мощности (подстройте под данные)
 CALIBRATION_DURATION = 10.0  # секунд "тишины" при старте
 
 # UDP-сокет для управления
@@ -219,13 +219,11 @@ def update_plot(_):
     if is_calibrated:
         # Решение: вперёд или назад
         if not (psd > THRESHOLD).any():
-            if current_direction != "F":
-                send_to_esp32("F,100")
-                current_direction = "F"
+            send_to_esp32("F,95")
+            current_direction = "F"
         else:
-            if current_direction != "B":
-                send_to_esp32("B,100")
-                current_direction = "B"
+            send_to_esp32("B,95")
+            current_direction = "B"
 
     return lines_eeg + lines_psd
 

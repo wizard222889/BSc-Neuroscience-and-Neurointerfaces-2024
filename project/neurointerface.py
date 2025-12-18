@@ -23,7 +23,7 @@ BUFFER_LEN = int(SAMPLE_RATE * EEG_WINDOW_SECONDS)
 TARGET_SERIAL = "821733"
 
 #  Настройки машинки и порога 
-ESP32_IP = "172.20.10.13"  #  замените на IP вашей ESP32
+ESP32_IP = "172.20.10.12"  #  замените на IP вашей ESP32
 UDP_PORT = 9999            #  должен совпадать с main.py на ESP32
 THRESHOLD = 5.52e-11     # порог мощности (подстройте под данные)
 CALIBRATION_DURATION = 10.0  # секунд "тишины" при старте
