@@ -220,11 +220,11 @@ def update_plot(_):
         # Решение: вперёд или назад
         if not (psd > THRESHOLD).any():
             if current_direction != "F":
-                send_to_esp32("F,100")
+                send_to_esp32("F,90")
                 current_direction = "F"
         else:
             if current_direction != "B":
-                send_to_esp32("B,100")
+                send_to_esp32("B,90")
                 current_direction = "B"
 
     return lines_eeg + lines_psd
